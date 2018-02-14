@@ -55,6 +55,7 @@ $factory->define(App\Good::class, function (Faker\Generator $faker) {
     return [
         'inventory_id' => $faker->numberBetween(1,5),
         'log_id' => $faker->numberBetween(1,20),
+        'qty' => $faker->numberBetween(1,5),
     ];
 });
 
@@ -63,6 +64,7 @@ $factory->define(App\Inventory::class, function (Faker\Generator $faker) {
         'name' => $faker->name,
         'quantity_ready' => $faker->numberBetween(1,20),
         'quantity_broken' => $faker->numberBetween(1,20),
+        'meta' => $faker->text,
     ];
 });
 

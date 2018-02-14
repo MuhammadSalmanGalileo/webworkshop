@@ -11,14 +11,6 @@
 |
 */
 
-Route::get('/', 'PagesController@index');
+Route::get('/', 'Test@tester');
 
-Route::get('/about', 'PagesController@about');
-
-Route::get('/services', 'PagesController@services');
-
-Route::resource('/posts', 'PostsController');
-
-Route::get('{slug}', function($slug) {
-    return view('welcome');
-})->where('slug', '^.+');
+Route::get('/coba', 'Test@connect');

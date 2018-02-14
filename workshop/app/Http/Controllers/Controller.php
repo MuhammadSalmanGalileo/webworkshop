@@ -10,4 +10,11 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    public function unspace($s)
+    {
+        //return strng without space, and change space into underscores
+        $s = str_replace(' ', '_', $s);
+        return $s;
+    }
 }

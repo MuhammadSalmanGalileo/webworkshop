@@ -55,7 +55,7 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            'key' => ['required', Rule::in([crypt($registerkey,'122122')]),] ,
+            'key' => ['required', Rule::in([md5($registerkey)]),] ,
         ]);
     }
 

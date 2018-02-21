@@ -21,6 +21,7 @@
             <ul class="nav navbar-nav">
                 <!-- Messages: style can be found in dropdown.less-->
                 <!-- User Account Menu -->
+                @if (Auth::check())
                 <li class="dropdown user user-menu">
                     <!-- Menu Toggle Button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -49,7 +50,8 @@
                             </div>
                         </li>
                     </ul>
-                </li>
+                </li>              
+                @endif
                 <!-- Control Sidebar Toggle Button -->
                 <li>
                     <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>

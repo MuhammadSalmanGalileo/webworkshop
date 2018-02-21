@@ -47,7 +47,9 @@ class Test extends Controller
 
     public function tester(Request $request)
     {  
-        return $request->all();
+        $this->data['sidebar'][0]['state'] = 'active';
+        $this->data['header'] = ['main' => 'Pickup', 'sub' => 'Halaman untuk pengambilan barang'];
+        return view('update', $this->data);
     }
 
     public function pickupBarang()

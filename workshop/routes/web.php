@@ -13,6 +13,15 @@
 
 //Route::get('/', 'TestController@showLog');
 
+Route::get('/md5', function(){
+    // $curr_time = date('d/m/y');
+    // $data = env('REG_PWD').$curr_time;
+    // return hash("md5", $data).' '.$data;
+    $date = new DateTime('2000-01-01');
+    return $date->format('Y-m-d H:i:s');
+});
+
+Route::get('/update', 'Test@tester');
 
 Route::get('/pickup', 'DashboardController@pickupBarang')->name('pickup');
 Route::get('/return', 'DashBoardController@returnBarang')->name('return');

@@ -49,7 +49,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {   
         $curr_time = date('d/m/y');
-        $data['key'] = crypt($data['key'],'122122');
+        // $data['key'] = crypt($data['key'],'122122');
         $registerkey = env('REG_PWD').$curr_time;
         return Validator::make($data, [
             'name' => 'required|string|max:255',

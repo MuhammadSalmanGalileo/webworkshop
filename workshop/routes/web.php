@@ -13,12 +13,11 @@
 
 //Route::get('/', 'TestController@showLog');
 
-Route::get('/md5', function(){
+Route::get('/md5/{id}', function($id){
     // $curr_time = date('d/m/y');
     // $data = env('REG_PWD').$curr_time;
     // return hash("md5", $data).' '.$data;
-    $date = new DateTime('2000-01-01');
-    return $date->format('Y-m-d H:i:s');
+    return "".(md5(env('REG_PWD').date('d/m/y')) == $id);
 });
 
 Route::get('/update', 'Test@tester');

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 18, 2018 at 09:11 PM
+-- Generation Time: Mar 03, 2018 at 11:19 AM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -19,40 +19,50 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `workshop`
+-- Database: `ws`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rent_prices`
+-- Table structure for table `inventories`
 --
 
+CREATE TABLE `inventories` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `quantity_ready` int(11) NOT NULL,
+  `quantity_broken` int(11) NOT NULL,
+  `meta` varchar(500) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 --
--- Dumping data for table `rent_prices`
+-- Dumping data for table `inventories`
 --
 
-INSERT INTO `rent_prices` (`id`, `inventory_id`, `price_per_3hour`, `price_per_day`, `created_at`, `updated_at`) VALUES
-(1, 1, 25000, 100000, '2018-01-17 19:28:18', '2018-01-17 19:28:18'),
-(2, 2, 5000, 30000, '2018-01-17 19:28:30', '2018-01-17 19:28:30'),
-(3, 3, 0, 10000, '2018-01-17 19:31:42', '2018-01-18 02:31:42'),
-(4, 4, 0, 30000, '2018-01-17 19:31:42', '2018-01-18 02:31:42'),
-(5, 5, 0, 15000, '2018-01-17 19:31:42', '2018-01-18 02:31:42'),
-(6, 6, 0, 15000, '2018-01-17 19:31:42', '2018-01-18 02:31:42'),
-(7, 7, 0, 10000, '2018-01-17 19:31:42', '2018-01-18 02:31:42'),
-(8, 8, 0, 15000, '2018-01-17 19:31:42', '2018-01-18 02:31:42'),
-(9, 9, 0, 30000, '2018-01-17 19:31:42', '2018-01-18 02:31:42'),
-(10, 10, 0, 100000, '2018-01-17 19:31:42', '2018-01-18 02:31:42'),
-(11, 11, 0, 10000, '2018-01-18 05:25:47', '2018-01-18 05:25:47');
+INSERT INTO `inventories` (`id`, `name`, `quantity_ready`, `quantity_broken`, `meta`, `created_at`, `updated_at`) VALUES
+(1, 'Proyektor', 2, 1, 'Proyektor terbaik yang cocok untuk keperluan acaramu baik indoor maupun outdoor\r\n                    <br><h5>Spesifikasi</h5>\r\n                    <ul>\r\n                    <li>Merk : Viewsonic, Sony</li>\r\n                    <li>Intensitas : 2200, 4000 lumens</li>\r\n                  </ul>', '2018-01-16 23:26:53', '2018-01-16 23:26:53'),
+(2, 'Layar Proyektor', 2, 2, 'Layar proyektor berdiri disertai tripod\r\n                    <br><h5>Spesifikasi</h5>\r\n                    <ul>\r\n                    <li>Dimensi : 70 inch</li>\r\n                  </ul>', '2018-01-16 23:27:03', '2018-01-16 23:27:03'),
+(3, 'Microphone Kabel', 5, 1, 'Microphone dengan harga terjangkau untuk keperluan acara, kelas, atau musik', '2018-01-16 23:28:12', '2018-01-16 23:28:12'),
+(4, 'Microphone Wireless', 1, 0, 'Microphone wireless satu set terdiri dari 2 mic. Cocok untuk keperluan acara di ruangang besar.', '2018-01-16 23:28:12', '2018-01-16 23:28:12'),
+(5, 'Halogen', 6, 0, 'Lampu sorot halogen yang sangat terang. Cocok dipakai untuk berbagai kegiatan malam hari\r\n    <br><h5>Spesifikasi</h5>\r\n    <ul>\r\n        <li>Daya : 500 W</li>\r\n        <li>Cahaya : Kuning</li>\r\n    </ul>', '2018-01-16 23:28:54', '2018-01-16 23:28:54'),
+(6, 'Halogen LED', 0, 2, 'Lampu sorot LED yang sangat terang. Cocok dipakai untuk berbagai kegiatan malam hari\r\n    <br><h5>Spesifikasi</h5>\r\n    <ul>\r\n        <li>Daya : 50 W</li>\r\n        <li>Cahaya : Putih</li>\r\n    </ul>\r\n', '2018-01-16 23:28:54', '2018-01-16 23:28:54'),
+(7, 'Terminal Kabel', 2, 0, 'Terminal untuk keperluan kelistrikan. Panjang kabel antara 7-10m.', '2018-01-16 23:30:45', '2018-01-16 23:30:45'),
+(8, 'Terminal Kabel Panjang', 1, 0, 'Terminal untuk keperluan kelistrikan. Panjang kabel 15 m.', '2018-01-16 23:30:45', '2018-01-16 23:30:45'),
+(9, 'Speaker Indoor', 2, 0, 'Speaker sebagai pengeras suara untuk acara dalam ruangan', '2018-01-16 23:31:39', '2018-01-16 23:31:39'),
+(10, 'Speaker Outdoor', 1, 0, 'Speaker sebagai pengeras suara untuk luar ruangan. Sangat baik untuk keperluan musik outdoor.', '2018-01-16 23:31:39', '2018-01-16 23:31:39'),
+(11, 'Mixer', 1, 0, 'Mixer sebagai alat penghubung banyak masukan suara seperti mic atau sumber suara lain ke speaker.', '2018-01-18 05:11:22', '2018-01-18 05:11:22');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `rent_prices`
+-- Indexes for table `inventories`
 --
-ALTER TABLE `rent_prices`
+ALTER TABLE `inventories`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -60,9 +70,9 @@ ALTER TABLE `rent_prices`
 --
 
 --
--- AUTO_INCREMENT for table `rent_prices`
+-- AUTO_INCREMENT for table `inventories`
 --
-ALTER TABLE `rent_prices`
+ALTER TABLE `inventories`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 

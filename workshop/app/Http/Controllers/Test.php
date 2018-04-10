@@ -49,7 +49,22 @@ class Test extends Controller
     {  
         $this->data['sidebar'][0]['state'] = 'active';
         $this->data['header'] = ['main' => 'Pickup', 'sub' => 'Halaman untuk pengambilan barang'];
+        $this->data['log'] = [
+            'name' => 'Muhammad Salman Galileo',
+            'waktu' => '2000/01/01 00:00:00 - 2000/01/01 00:00:00',
+            'listLog' => [
+                'Halogen' => [1,3],
+                'Proyektor' => [2,4],
+                'Layar' => [3,5],
+                'Mixer' => [4,5]
+            ]
+        ];
         return view('update', $this->data);
+    }
+
+    public function answer(Request $request)
+    {  
+        return $request;
     }
 
     public function pickupBarang()

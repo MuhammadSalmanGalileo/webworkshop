@@ -21,6 +21,7 @@ Route::get('/md5/{id}', function($id){
 });
 
 Route::get('/update', 'Test@tester');
+Route::post('/update', 'Test@answer');
 
 Route::get('/pickup', 'DashboardController@pickupBarang')->name('pickup');
 Route::get('/return', 'DashBoardController@returnBarang')->name('return');

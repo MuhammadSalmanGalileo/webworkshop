@@ -18,6 +18,7 @@ class CreateInventoriesTable extends Migration
             $table->string('name', 100);
             $table->integer('quantity_ready');
             $table->integer('quantity_broken');
+            $table->string('meta',500);
             $table->timestamps();
         });
     }

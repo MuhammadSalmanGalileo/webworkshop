@@ -17,6 +17,7 @@ class CreateGoodsTable extends Migration
             $table->increments('id');
             $table->integer('inventory_id');
             $table->integer('log_id');
+            $table->integer('qty');
             $table->timestamps();
         });
     }

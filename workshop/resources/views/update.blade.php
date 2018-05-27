@@ -8,6 +8,8 @@
         </div>
         <div class="box-body">
             <form action="/update" method="post">
+                <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
+                <input type="hidden" name="id" value="{{ $log['id'] }}" />
                 <div class="form-group vertical-align">
                     <label class="col-sm-2 control-label">Nama Pemesan</label>
                     <label class="col-sm-10 control-label">{{$log["name"]}}</label>
@@ -20,7 +22,7 @@
                     <div class="form-group vertical-align">
                         <label for="inputEmail3" class="col-sm-2 control-label">{{$key}}</label>
                         <div class="input-group col-sm-10">
-                        <input name="{{$key}}" type="text" class="form-control" value="{{$value[0]}}">
+                        <input name="{{$value[2]}}" type="text" class="form-control" value="{{$value[0]}}">
                         <span class="input-group-addon">/{{$value[1]}}</span>
                         </div>
                     </div>

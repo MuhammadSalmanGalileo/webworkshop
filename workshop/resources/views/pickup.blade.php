@@ -33,6 +33,13 @@
                     <td>{{ $pickup['from'] }}</td>
                     <td>{{ $pickup['until'] }}</td>
                     <td><button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modal{{ $key }}">Pickup</button></td>
+                    <td>
+                        <form action="/status" method="post">
+                            <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
+                            <input type="hidden" name="id" value="{{ $pickup['id'] }}" />    
+                            <button type="submit" class="btn btn-primary btn-xs" >Change</button>
+                        </form>
+                    </td>
                 </tr>
             @endforeach
         </table>

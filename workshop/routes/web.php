@@ -13,17 +13,12 @@
 
 //Route::get('/', 'TestController@showLog');
 
-Route::get('/md5/{id}', function($id){
-    // $curr_time = date('d/m/y');
-    // $data = env('REG_PWD').$curr_time;
-    // return hash("md5", $data).' '.$data;
-    return "".(md5(env('REG_PWD').date('d/m/y')) == $id);
-});
-
-Route::get('/update', 'Test@tester');
-Route::post('/update', 'Test@answer');
-
+//Route::get('/update', 'Test@tester');
+//Route::post('/update', 'Test@answer');
+Route::post('/status', 'DashboardController@seeItemStatus');
 Route::get('/pickup', 'DashboardController@pickupBarang')->name('pickup');
+Route::get('/test','DashboardController@tes');
+Route::post('/update','DashboardController@update');
 Route::get('/return', 'DashBoardController@returnBarang')->name('return');
 Route::get('/log','DashBoardController@logBarang')->name('log');
 Route::post('/pickuppost', 'DashBoardController@pickupPost');

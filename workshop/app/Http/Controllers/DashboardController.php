@@ -46,6 +46,10 @@ class DashboardController extends Controller
         //$this->data['nama_orang'] = Auth::check();
     }
 
+    public function stringToSeconds($string){
+       return strtotime($string);
+    }
+
     public function pickupBarang()
     {
        //return Auth::user();
@@ -53,7 +57,7 @@ class DashboardController extends Controller
         $this->data['sidebar'][0]['state'] = 'active';
         $this->data['header'] = ['main' => 'Pickup', 'sub' => 'Halaman untuk pengambilan barang'];
 
-        $logs = Log::with(['customer.organizations','good.inventory','service'])->where('status','tagged')->get();
+        $logs = Log::with(['customer.organizations','good.inventory.price','service'])->where('status','tagged')->get();
         //return $logs[0];
         $return_log = array();
         foreach($logs as $key=>$log){
@@ -64,13 +68,104 @@ class DashboardController extends Controller
             $return_log[$key]['org'] = null;//$log->customer->organizations->pluck('name');
             $return_log[$key]['rent'] = null;//$log->good->inventory->name;
             $return_log[$key]['from'] = $log->pickup_time;
-            $return_log[$key]['until'] = $log->prom_return_timep;
-        }
-        $this->data['pickup_log'] = $return_log;
+            $return_log[$key]['until'] = $log->prom_return_time;
+            
+            $good = $log->good;
+            //echo($good);
+            $delta = $this->deltaTime($log->pickup_time, $log->prom_return_time);
+            // echo($delta);
+            // echo("<br>");
+            $trihourdelta = round($delta / 3);
+            // echo($trihourdelta);
+            // echo("<br>");
+            $day_delta = round($delta / 24);
+            // echo($day_delta);
+            // echo("<br>");
+            $price_hour = 0;
+            $i = 0;
+            foreach($good as $goods){
+                $price_hour += $goods->inventory->price[0]->price_per_3hour * $goods->qty;
+            }
 
+            $price_hour *= $trihourdelta;
+            // echo($price_hour);
+            // echo("<br>");
+            $price_day = 0;
+            foreach($good as $goods){
+                $price_day += $goods->inventory->price[0]->price_per_day * $goods->qty;
+            }
+            $price_day *= $day_delta;
+            // echo($price_day);
+            // echo("<br>");
+            if($price_day < $price_hour && $price_day > 0){
+                $return_log[$key]['price'] = $price_day;
+            }else{
+                $return_log[$key]['price'] = $price_hour;
+            }
+            // echo($return_log[$key]['price']);
+            // echo("End of item <br>");
+        } 
+        $this->data['pickup_log'] = $return_log;
+        //return $this->stringToSeconds($return_log[0]['from']);
         return view('pickup', $this->data);
         //return $pickup_log[1];
     }
+
+    public function dropLog(Request $request){
+        $log_todelet = Log::find($request->id);
+
+        $goods = $log_todelet->good;
+
+        foreach($goods as $good){
+            $good_todelet = Good::find($good->id);
+            $good_todelet->delete();
+        }
+
+        $log_todelet->delete();
+
+        return redirect()->route('pickup');
+    }
+
+    public function deltaTime($tanggalstart, $tanggalend){
+        $detikstart = $this->stringToSeconds($tanggalstart);
+        // echo($detikstart);
+        // echo("<br>");
+        $detikend = $this->stringToSeconds($tanggalend);
+        // echo($detikend); 
+        // echo("<br>");
+        $selisihjam = ($detikend - $detikstart) / 3600;
+        $selisihjam = round($selisihjam);
+
+        return $selisihjam;
+    }
+
+    public function test()
+    {
+       //return Auth::user();
+        //$this->data['nama_orang'] = Auth::user()->name;
+        $this->data['sidebar'][0]['state'] = 'active';
+        $this->data['header'] = ['main' => 'Pickup', 'sub' => 'Halaman untuk pengambilan barang'];
+        //ini intinya eager loading, kepotong gpp ya
+        $logs = Log::with(['customer.organizations','good.inventory.price','service'])->where('status','tagged')->get();
+        
+        //return $logs;
+
+        foreach($logs as $key=>$log){
+            $interest =  $log;
+
+           // echo($interest);
+
+            $good = $interest->good;
+
+            foreach($good as $goods){
+                echo($goods->inventory->price[0]->price_per_3hour);
+            }
+            //echo("Limiter \n");
+        }
+
+        return null;
+    }
+
 
     public function returnBarang()
     {
@@ -89,7 +184,7 @@ class DashboardController extends Controller
             $return_log[$key]['org'] = null;//$log->customer->organizations->pluck('name');
             $return_log[$key]['rent'] = null;//$log->good->inventory->name;
             $return_log[$key]['from'] = $log->pickup_time;
-            $return_log[$key]['until'] = $log->prom_return_timep;
+            $return_log[$key]['until'] = $log->prom_return_time;
         }
         $this->data['return_log'] = $return_log;
 
@@ -118,7 +213,9 @@ class DashboardController extends Controller
             $logs_data[$key]['rent'] = null;
             $logs_data[$key]['from'] = $log->pickup_time;
             $logs_data[$key]['until'] = $log->prom_return_time;
+
         }
+        return $logs_data;
         $this->data['logs'] = $logs_data;
 
         return view('log', $this->data);
@@ -127,9 +224,11 @@ class DashboardController extends Controller
     public function pickupPost(Request $request){
         //return $request->id;
         $log = Log::find($request->id);
+        $price = $request->price;
         //return $log;
         $log->status = 'picked';
         $log->service->pickup_nim = $request->nim;
+        $log->service->revenue = round($price / 10);
         $log->save();
         $log->service->save();
         return redirect()->route('pickup');
@@ -147,6 +246,16 @@ class DashboardController extends Controller
         $log->save();
         $log->service->save();
         //return $log;
+
+        $items = Good::with(['inventory'])->where('log_id',$request->id)->get();
+        //$to_change = array();
+        foreach($items as $item){
+            $change = Good::find($item->id);
+            $change->inventory->quantity_ready += $item->qty;
+            $change->save();
+            $change->inventory->save();
+        }
+
         return redirect()->route('return');
     }
 
@@ -208,7 +317,7 @@ class DashboardController extends Controller
             $to_change = Good::find($item);
             $qty_available = $to_change->inventory->quantity_ready;
             $curr_qty = $to_change->qty;
-            if($target_qty <= $qty_available){
+            if($target_qty <= $qty_available+$curr_qty){
                 $to_change->qty = $target_qty;
                 $to_change->inventory->quantity_ready = $qty_available + $curr_qty - $target_qty;
                 $to_change->save();

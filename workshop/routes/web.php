@@ -17,8 +17,9 @@
 //Route::post('/update', 'Test@answer');
 Route::post('/status', 'DashboardController@seeItemStatus');
 Route::get('/pickup', 'DashboardController@pickupBarang')->name('pickup');
-Route::get('/test','DashboardController@tes');
+Route::get('/test','DashboardController@test');
 Route::post('/update','DashboardController@update');
+Route::post('/delet','DashboardController@dropLog');
 Route::get('/return', 'DashBoardController@returnBarang')->name('return');
 Route::get('/log','DashBoardController@logBarang')->name('log');
 Route::post('/pickuppost', 'DashBoardController@pickupPost');

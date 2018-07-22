@@ -40,6 +40,13 @@
                             <button type="submit" class="btn btn-primary btn-xs" >Change</button>
                         </form>
                     </td>
+                    <td>
+                        <form action="/delet" method="post">
+                            <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
+                            <input type="hidden" name="id" value="{{ $pickup['id'] }}" />    
+                            <button type="submit" class="btn btn-primary btn-xs" >Drop</button>
+                        </form>
+                    </td>
                 </tr>
             @endforeach
         </table>
@@ -58,7 +65,9 @@
                             <div class="modal-body">
                                     <input type="hidden" name="_token" value="{{{ csrf_token() }}}" />
                                     <input type="hidden" name="id" value="{{ $pickup['id'] }}" />
+                                    <input type="hidden" name="price" value="{{ $pickup['price'] }}" />
                                     <p>Pengambilan barang atas nama {{ $pickup['name'] }}</p>
+                                    <p>Dengan total harga : {{$pickup['price']}}</p>
                                     <p>NIM pemberi : </p><input type="string" name="nim" id="nim"/>
                                     <!-- <input type=password id=password> Password </input> -->
                             </div>

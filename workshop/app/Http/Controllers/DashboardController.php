@@ -217,7 +217,6 @@ class DashboardController extends Controller
         }
         return $logs_data;
         $this->data['logs'] = $logs_data;
-
         return view('log', $this->data);
     }
 

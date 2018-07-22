@@ -301,7 +301,6 @@ class DashboardController extends Controller
         }
         $order_data['listLog'] = $good_table;
         $order_data['id'] = $id;
-        //}
         $this->data['log'] = $order_data;
         return view('update',$this->data);
     }

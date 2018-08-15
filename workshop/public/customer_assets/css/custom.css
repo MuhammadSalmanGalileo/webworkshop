@@ -1,0 +1,44 @@
+.custom-form-title {
+    padding-left: 16px !important;
+}
+
+.custom-form-text {
+    font-size: 20px;
+    padding-top: 10px;
+}
+
+.custom-form-border {
+    border: 1px #000 solid;
+}
+
+.custom-form-divider {
+
+    border: 1px #000 solid;
+    height: 3px;
+    border-radius: 50px;
+}
+
+.custom-center-inventory-title {
+    text-align: center !important;
+}
+
+.custom-right-text-align {
+    text-align: right;
+}
+
+.custom-inventory-quantity {
+    margin-right: 15px;
+}
+
+.custom-form-date {
+    border: 1px #000 solid !important;
+}
+
+.custom-inventory-img {
+    height: 10px !important;
+}
+
+.custom-modal-field {
+    font-weight: bold;
+    color: darkgray;
+}

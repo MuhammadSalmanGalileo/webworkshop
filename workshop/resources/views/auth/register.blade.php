@@ -61,17 +61,17 @@
                             </div>
                         </div>
                         
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('key') ? ' has-error' : '' }}">
                             <label for="passwordregister" class="col-md-4 control-label">Password Register</label>
 
                             <div class="col-md-6">
                                 <input id="key" type="text" class="form-control" name="key" required>
 
-                                {{--  @if ($errors->has('password'))
+                                @if ($errors->has('key'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
+                                        <strong>{{ $errors->first('key') }}</strong>
                                     </span>
-                                @endif  --}}
+                                @endif
                             </div>
                         </div>
 
